@@ -6,6 +6,9 @@ import json
 import error
 import thread
 
+#jenkins_dir = '/var/lib/jenkins/jobs/' # for add.html
+
+#message_string = '' # for add.html
 
 class MainHandler(tornado.web.RequestHandler):
     def initialize(self, mrg):
