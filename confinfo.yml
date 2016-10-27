@@ -1,0 +1,29 @@
+# server info list
+--- 
+tracker: 
+    rootpath: trackerconfs
+    variables:
+        latest:
+            template1: value1
+            template2: value2
+upgrade: 
+    rootpath: upgradeconfs
+    variables:
+        latest:
+            template3: value3
+            template4: value4
+stun: 
+    rootpath: stunconfs
+    variables:
+        latest:
+            template5: value5
+            template6: value6
+        "20160404":
+            template5: value50
+            template6: value60
+p2p_analyst:  
+    rootpath: p2p_analystconfs
+    variables:
+        latest:
+            template7: value7
+            template8: value8

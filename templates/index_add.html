@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+<!--<button id="button" type="submit">CLICK</button>-->
+</body>
+    <script src="http://libs.baidu.com/jquery/2.0.3/jquery.js"></script>
+    <script>
+        var time_id;
+        $(document).ready(function() {
+            $("#button").click(function() {
+//                alert($("#plist").val());
+//                alert($("#rip").val());
+//                alert($("#rpath").val());
+                btn_click();
+            });
+        });
+
+//        function set_time_func() {
+//            var t_id = setInterval(core_func, 3000);
+//            return core_func(t_id);
+//        }
+
+        function core_func(tmp_id) {
+            return function(){
+                display_message(tmp_id);
+            }
+        }
+
+//        function test_func() {
+//             time_id = setInterval(core_func(time_id), 3000)
+//
+//            function core_func(time_id) {
+//                return function(){
+//                    display_message(time_id);
+//                }
+//            }
+//
+//            var display_message = function(time_id){
+//            $.ajax({
+//                    url:'/ajaxtest',
+//                    type:'GET',
+//                    dataType:'json',
+//                    success:function(data){
+//                        $("#message").val(data.message)
+//                        if(data.message==="build success" || data.message==="build failed") {
+//                            clearTimeout(time_id)
+//                        }
+//                    },
+//                    error:function(){
+//                        $("#message").val("error on server...")
+//                    }
+//                });
+//            }
+//        }
+
+//        time_id = setInterval(core_func(time_id), 3000)
+
+        var display_message = function(t){
+            $.ajax({
+                url:'/ajaxtest',
+                type:'GET',
+                dataType:'json',
+                success:function(data){
+                    $("#message").val(data.message);
+                    if(data.message==="build success" || data.message==="build failed") {
+                        $("#message").val("in if " + data.message);
+                        clearTimeout(time_id);
+                    }
+                },
+                error:function(){
+                    $("#message").val("error on server...");
+                    clearTimeout(time_id);
+                }
+            });
+        }
+
+        function btn_click(){
+            $.ajax({
+                    url: '/ajaxtest',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        project_name:$("#plist").val()[0],
+                        remote_ip:$("#rip").val(),
+                        remote_path:$("#rpath").val(),
+                        package_name:$("#pckname").val()
+                    },
+                    success:function(data){
+//                        if(data.status == true){
+//                            alert(data.value);
+//                        } else {
+//                            alert(data.value);
+//                        }
+//                        time_id = setInterval(display_message, 3000);
+//                        time_id = setInterval(core_func(time_id), 3000)
+                        (function(){var t_id = setInterval(function(){
+                            $.ajax({
+                                url:'/ajaxtest',
+                                type:'GET',
+                                dataType:'json',
+                                success:function(data){
+                                    $("#message").val(data.message)
+                                    if(data.message==="build success" || data.message==="build failed") {
+                                        clearTimeout(t_id)
+                                    }
+                                },
+                                error:function(){
+                                    $("#message").val("error on server...")
+                                    clearTimeout(t_id)
+                                }
+                            });
+                        }, 10000)})();
+                        $("#message").val(data.test);
+                    },
+                    error: function () {
+                        $("#message").val("error on server");
+                    }
+              });
+        }
+    </script>
+    <h1>test from</h1>
+        <form method="post" action="/builddeploy">
+            <p>project list:<br><select name="list" multiple="false" id="plist">
+                {% for item in items %}
+                <option value={{item}}>{{item}}</option>
+                {% end %}
+            </select></p>
+            <p>remote ip<br><input type="text" name="remote_ip" id="rip"></p>
+            <p>remote path<br><input type="text" name="remote_path" id="rpath"></p>
+            <p>package name<br><input type="text" name="package_name" id="pckname"></p>
+            <!--<p>message:<br><input type="text" name="noun3"></p>-->
+            <input type="submit" name="deploy" value="deploy">
+        </form>
+
+        <input type="text" name="message" id="message">
+        <button id="button" type='submit' name="build">build </button>
+</body>
+</html>

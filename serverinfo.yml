@@ -1,0 +1,11 @@
+p2p_analyst:
+- 10.5.100.9: [lasted]
+stun:
+- 10.5.100.8: [lasted]
+- 0.0.0.0: [lasted, bkmvn, conf, conf_o1, conf_o2, conf_o3, conf_o4, conf_o5, conf_veryold,
+    datafiles, new_files, temp]
+tracker:
+- 10.5.100.7: [lasted]
+- 0.0.0.0: [lasted, 20160101]
+upgrade:
+- 10.5.100.8: [lasted, 20160101, 20160202]

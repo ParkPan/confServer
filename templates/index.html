@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Server info list</title>
+</head>
+<body>
+    {% for role, ips in serverinfo.items() %}
+    <h3><font size="3">{{ role }}</font></h3>
+        <ul>
+            {% for ipinfo in ips %}
+                {% for key, values in ipinfo.items() %}
+                <li><font size="2">{{ key }}</font>{% for version in values %}
+                        <ul><li><font size="1">{{ version }}</font></li></ul>
+                    {% end %}</li>
+                {% end %}
+            {% end %}
+        </ul>
+    {% end %}
+</body>
+</html>
